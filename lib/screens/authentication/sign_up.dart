@@ -4,17 +4,18 @@ import 'package:ecommerce_ui/components/custom_text_form_field.dart';
 import 'package:ecommerce_ui/components/top_banner_sheet.dart';
 import 'package:ecommerce_ui/constants.dart';
 import 'package:ecommerce_ui/screen_size_config.dart';
+import 'package:ecommerce_ui/screens/authentication/sign_in.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+class SignUpScreen extends StatelessWidget {
   static String routeName = "/sign_up";
 
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    ScreenSizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -24,7 +25,7 @@ class LoginScreen extends StatelessWidget {
           AppBarNavigation(
             text: "SIGN IN",
             onClick: () {
-
+              Navigator.pushReplacementNamed(context, SignInScreen.routeName);
             },
           ),
         ],
@@ -46,6 +47,10 @@ class LoginScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(32.0),
                       child: Column(
                         children: [
+                          NameTextFormField(controller: nameController),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
                           EmailTextFormField(controller: emailController),
                           const SizedBox(
                             height: 15.0,
@@ -54,14 +59,14 @@ class LoginScreen extends StatelessWidget {
                           const SizedBox(
                             height: 15.0,
                           ),
+                          PasswordTextFormField(controller: passwordController,hintText: "Confirm password",),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              GestureDetector(
-                                  child: const Text(
-                                    "Forgot password?   ",
-                                    style: TextStyle(color: Colors.red, fontSize: 12.0),
-                                  )),
+                              buildForgetPassword(context)
                             ],
                           ),
                           const SizedBox(

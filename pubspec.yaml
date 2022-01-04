@@ -34,6 +34,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  provider: ^6.0.2
+  flutter_otp_text_field: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +62,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
       - images/icons/
+      - images/vector_icons/
+      - images/pictures/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -76,6 +80,10 @@ flutter:
      - family: Nunito-regular
        fonts:
          - asset: fonts/nunito/Nunito-Regular.ttf
+
+     - family: ZillaSlab-medium
+       fonts:
+         - asset: fonts/zilla-slab/ZillaSlab-Medium.ttf
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf

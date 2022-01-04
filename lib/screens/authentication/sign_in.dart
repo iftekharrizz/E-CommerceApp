@@ -4,6 +4,7 @@ import 'package:ecommerce_ui/components/custom_text_form_field.dart';
 import 'package:ecommerce_ui/components/top_banner_sheet.dart';
 import 'package:ecommerce_ui/constants.dart';
 import 'package:ecommerce_ui/screen_size_config.dart';
+import 'package:ecommerce_ui/screens/authentication/sign_up.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -23,15 +24,17 @@ class SignInScreen extends StatelessWidget {
         actions: [
           AppBarNavigation(
             text: "SIGN UP",
-            onClick: () {},
+            onClick: () {
+              Navigator.pushReplacementNamed(context, SignUpScreen.routeName);
+            },
           ),
         ],
       ),
       body: SafeArea(
           child: SingleChildScrollView(
-            child: SizedBox(
-        width: double.infinity,
-        child: Column(
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
             children: [
               TopBannerSheet(
                 bannerHeading: "SIGN IN",
@@ -55,11 +58,7 @@ class SignInScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          GestureDetector(
-                              child: const Text(
-                            "Forgot password?   ",
-                            style: TextStyle(color: Colors.red, fontSize: 12.0),
-                          )),
+                          buildForgetPassword(context),
                         ],
                       ),
                       const SizedBox(
@@ -95,9 +94,10 @@ class SignInScreen extends StatelessWidget {
                     ],
                   ))
             ],
+          ),
         ),
-      ),
-          )),
+      )),
     );
   }
+
 }
