@@ -5,6 +5,7 @@ import 'package:ecommerce_ui/components/top_banner_sheet.dart';
 import 'package:ecommerce_ui/constants.dart';
 import 'package:ecommerce_ui/screen_size_config.dart';
 import 'package:ecommerce_ui/screens/authentication/sign_up.dart';
+import 'package:ecommerce_ui/screens/home_screen/home_page.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -65,7 +66,9 @@ class SignInScreen extends StatelessWidget {
                         height: 15.0,
                       ),
                       PrimaryButton(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, HomePage.routeName);
+                        },
                         btnColor: kPrimaryButtonClr,
                         btnLabel: "SIGN IN",
                       ),

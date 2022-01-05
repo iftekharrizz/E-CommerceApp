@@ -6,8 +6,10 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
-      {"icon": "images/vector_icons/high_heels.png", "text": "Women Fashion"},
-      {"icon": "images/vector_icons/child_cloths.png", "text": "Child Fashion"},
+      {"icon": "images/vector_icons/high_heels.png",
+        "text": "Women Fashion"},
+      {"icon": "images/vector_icons/child_cloths.png",
+        "text": "Child Fashion"},
       {
         "icon": "images/vector_icons/food_and_drink.png",
         "text": "Food & Drinks"
@@ -24,8 +26,8 @@ class Categories extends StatelessWidget {
       },
       {"icon": "images/vector_icons/shirt.png", "text": "Man Fashion"},
     ];
-    return Flexible(
-      fit: FlexFit.loose,
+    return Container(
+      height: 110,
       child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,

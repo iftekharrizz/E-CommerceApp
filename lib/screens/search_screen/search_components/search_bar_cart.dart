@@ -1,4 +1,4 @@
-import 'package:ecommerce_ui/screens/home_screen/home_components/search_text_field.dart';
+import 'package:ecommerce_ui/screens/search_screen/search_components/search_text_field.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';

@@ -11,6 +11,7 @@ class SearchTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 40,
+      width: MediaQuery.of(context).size.width,
       child: TextFormField(
         decoration: InputDecoration(
             fillColor: Colors.white,
@@ -36,7 +37,7 @@ class SearchTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(28)),
             suffixIcon: Container(
                 height: 25,
-                width: 40,
+                width: 45,
                 decoration: BoxDecoration(
                     color: kPrimaryBackGroundClr,
                     borderRadius: BorderRadius.circular(20)),

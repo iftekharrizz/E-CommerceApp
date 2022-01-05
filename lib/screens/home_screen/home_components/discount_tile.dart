@@ -13,8 +13,8 @@ class DiscountSegment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      fit: FlexFit.loose,
+    return Container(
+      height: 170,
       child: ListView.builder(
         shrinkWrap: true,
           scrollDirection: Axis.horizontal,

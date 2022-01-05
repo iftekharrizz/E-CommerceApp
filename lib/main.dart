@@ -3,6 +3,8 @@ import 'package:ecommerce_ui/screens/authentication/otp_screen.dart';
 import 'package:ecommerce_ui/screens/authentication/sign_in.dart';
 import 'package:ecommerce_ui/screens/authentication/sign_up.dart';
 import 'package:ecommerce_ui/screens/home_screen/home_page.dart';
+import 'package:ecommerce_ui/screens/profile_screen/profile_page.dart';
+import 'package:ecommerce_ui/screens/search_screen/search_result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,13 +33,15 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           //primarySwatch: Color(0xFF7BCFE9),
         ),
-        initialRoute: HomePage.routeName,
+        initialRoute: SignInScreen.routeName,
         routes: {
           SignInScreen.routeName: (context) => SignInScreen(),
           SignUpScreen.routeName: (context) => SignUpScreen(),
           ForgetPasswordScreen.routeName: (context) => ForgetPasswordScreen(),
           OtpScreen.routeName: (context) => OtpScreen(),
           HomePage.routeName: (context) => HomePage(),
+          ProfileScreen.routeName: (context) => ProfileScreen(),
+          SearchResultPage.routeName: (_) => SearchResultPage(),
         },
       ),
     );
