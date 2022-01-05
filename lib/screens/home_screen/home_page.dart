@@ -16,57 +16,37 @@ class HomePage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         backgroundColor: kTextFieldFillClr,
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(22.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SearchBarWithCart(),
-                const SizedBox(height: 30),
-                Text("Category", style: HeadLineTextStyle()),
-                const SizedBox(height: 30),
-                Categories(),
-                WalletTile(),
-                const SizedBox(height: 30),
-                Text('Sale Discount', style: HeadLineTextStyle()),
-                const SizedBox(height: 30.0),
-                const DiscountSegment(),
-                const SizedBox(height: 30),
-                Text('Popular', style: HeadLineTextStyle()),
-                const SizedBox(height: 30),
-                PopularSegment(),
-                /* Stack(
+          child: ListView(
+              physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(22.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 115,
-                          width: 115,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.white
-                          ),
-                          child: Image.asset("images/pictures/headphone.jpg"),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 90,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.white
-                            ),
-                          ),
-                        ),
+                    SearchBarWithCart(),
+                    const SizedBox(height: 30),
+                    Text("Category", style: HeadLineTextStyle()),
+                    const SizedBox(height: 30),
+                    Categories(),
+                    WalletTile(),
+                    const SizedBox(height: 30),
+                    Text('Sale Discount', style: HeadLineTextStyle()),
+                    const SizedBox(height: 30.0),
+                    const DiscountSegment(),
+                    const SizedBox(height: 30),
+                    Text('Popular', style: HeadLineTextStyle()),
+                    const SizedBox(height: 30),
+                    PopularSegment(),
 
-                      ],
-                    )
                   ],
-                )*/
-              ],
-            ),
-          ),
+                ),
+              ),
+            ],
+          )
         ));
   }
 }
@@ -81,6 +61,7 @@ class PopularSegment extends StatelessWidget {
     return Flexible(
       fit: FlexFit.loose,
       child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           itemCount: 12,
@@ -92,10 +73,8 @@ class PopularSegment extends StatelessWidget {
 }
 
 class PopularProductTile extends StatelessWidget {
-  const PopularProductTile({
-    Key? key,
-  }) : super(key: key);
 
+  double rating =0;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -116,6 +95,7 @@ class PopularProductTile extends StatelessWidget {
               ),
               Expanded(
                 child: Stack(
+                  alignment: Alignment.center,
                   children: [
                     Container(
                       height: 90,
@@ -125,14 +105,53 @@ class PopularProductTile extends StatelessWidget {
                             bottomRight: Radius.circular(8),
                           ),
                           color: Colors.white),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  "Product Name",
+                                  style: kProductTileStyle,
+                                ),
+                                Text(
+                                  "\$68",
+                                  style: kProductTileStyle.copyWith(fontSize: 18),
+                                ),
+                                /*RatingBar.builder(
+                                maxRating: 1,
+                                  itemBuilder: (context, _) => Icon(
+                                        Icons.star,
+                                        size: 8,
+                                        color: Colors.amber,
+                                      ),
+                                  onRatingUpdate: (rating){
+                                  this.rating = rating;
+
+                                  })*/
+                                Row(
+                                  children: [
+                                    Image.asset("images/vector_icons/rate.png"),
+                                    SizedBox(width: 8.0,),
+                                    Text("4.9",style: TextStyle(fontSize: 12.0),)
+                                  ],
+                                ),
+                               /* Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Image.asset("images/vector_icons/Love_Icon2.png"),
+                                    Image.asset("images/vector_icons/Shop_Cart_Icon_2.png"),
+                                  ],
+                                )*/
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    Column(
-                      children: [
-                        Text("Product Name\n\n",style: kProductTileStyle,),
-                        Text("\$68",style: kProductTileStyle,),
-                        /*RatingBar.builder(itemBuilder: itemBuilder, onRatingUpdate: onRatingUpdate)*/
-                      ],
-                    )
 
                   ],
                 ),
