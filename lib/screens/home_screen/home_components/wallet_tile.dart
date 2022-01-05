@@ -67,23 +67,21 @@ class WalletItems extends StatelessWidget {
   final String? iconName, tag;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            "images/vector_icons/${iconName.toString()}.png",
-            color: Colors.white,
-          ),
-          const SizedBox(
-            height: 2.0,
-          ),
-          Text(
-            tag!,
-            style: kButtonLabelStyle,
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          "images/vector_icons/${iconName.toString()}.png",
+          color: Colors.white,
+        ),
+        const SizedBox(
+          height: 2.0,
+        ),
+        Text(
+          tag!,
+          style: kButtonLabelStyle,
+        ),
+      ],
     );
   }
 }

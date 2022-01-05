@@ -25,7 +25,7 @@ class Categories extends StatelessWidget {
       {"icon": "images/vector_icons/shirt.png", "text": "Man Fashion"},
     ];
     return Flexible(
-      fit: FlexFit.tight,
+      fit: FlexFit.loose,
       child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
