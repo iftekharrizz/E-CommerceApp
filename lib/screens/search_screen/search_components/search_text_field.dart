@@ -1,3 +1,4 @@
+import 'package:ecommerce_ui/screens/search_screen/search_result_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -41,10 +42,13 @@ class SearchTextField extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: kPrimaryBackGroundClr,
                     borderRadius: BorderRadius.circular(20)),
-                child: const Icon(
-                  Icons.search,
-                  color: Colors.white,
-                  size: 22,
+                child: GestureDetector(
+                  onTap: (){Navigator.pushNamed(context, SearchResultPage.routeName);},
+                  child: const Icon(
+                    Icons.search,
+                    color: Colors.white,
+                    size: 22,
+                  ),
                 ))),
       ),
     );

@@ -11,7 +11,12 @@ Color kSmallTextClr = const Color(0xFF7A8D9C);
 Color kCatagoryFontClr = const Color(0xFF126881);
 Color kFacebookButtonClr = const Color(0xFF1877F2);
 Color kTextFieldFillClr = const Color(0xFFF6F6F7);
+Color kActiveClr = const Color(0xFF126881);
+Color kPriceTextClr = const Color(0xFFE4126B);
+
+TextStyle kSmallTextStyle = TextStyle(color: kSmallTextClr);
 TextStyle kProductTileStyle = const TextStyle(color: const Color(0xFF57636F),fontFamily: "ZillaSlab-medium");
 TextStyle kButtonLabelStyle = const TextStyle(color: Colors.white, fontSize: 15);
+TextStyle kProductLabelStyle = const TextStyle(color: const Color(0xFF57636F),fontFamily: "ZillaSlab-medium",fontSize: 18 );
 
 String kSignInDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer maximus accumsan erat id facilisis.";

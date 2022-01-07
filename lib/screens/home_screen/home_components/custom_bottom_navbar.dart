@@ -1,6 +1,8 @@
 import 'package:ecommerce_ui/constants.dart';
 import 'package:ecommerce_ui/screens/home_screen/home_page.dart';
+import 'package:ecommerce_ui/screens/product_screen/product_page.dart';
 import 'package:ecommerce_ui/screens/profile_screen/profile_page.dart';
+import 'package:ecommerce_ui/screens/search_screen/search_result_page.dart';
 import 'package:flutter/material.dart';
 import '../../../enums.dart';
 
@@ -53,7 +55,9 @@ class CustomBottomNavBar extends StatelessWidget {
               ),
               IconButton(
                 icon: Image.asset("images/vector_icons/notification_button.png"),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, ProductPage.routeName);
+                },
               ),
               IconButton(
                 icon: Image.asset(

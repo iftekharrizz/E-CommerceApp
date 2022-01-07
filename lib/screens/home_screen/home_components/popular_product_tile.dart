@@ -1,3 +1,4 @@
+import 'package:ecommerce_ui/components/rating_star_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -20,20 +21,26 @@ class PopularSegment extends StatelessWidget {
             return PopularProductTile(
               productImage: "images/pictures/headphone.jpg",
               productName: "Headphone",
-              productPrice: 78,
+              productPrice: "78",
+              productRating: "4.3",
+              favorite: true,
             );
           }),
     );
   }
 }
 
-class PopularProductTile extends StatelessWidget {
+class PopularProductTile extends StatefulWidget {
 
-  PopularProductTile({this.productName,this.productImage,this.productPrice});
-  String? productImage,productName;
-  int? productPrice;
+  PopularProductTile({this.productName,this.productImage,this.productPrice,this.productRating,this.favorite});
+  String? productImage,productName,productPrice,productRating;
+  bool? favorite ;
 
-  double rating =0;
+  @override
+  State<PopularProductTile> createState() => _PopularProductTileState();
+}
+
+class _PopularProductTileState extends State<PopularProductTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -47,7 +54,7 @@ class PopularProductTile extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: Colors.white),
-            child: Image.asset(productImage!,
+            child: Image.asset(widget.productImage!,
                 fit: BoxFit.fill),
           ),
           Expanded(
@@ -69,29 +76,20 @@ class PopularProductTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          productName!,
+                          widget.productName!,
                           style: kProductTileStyle,
                         ),
                         Text(
-                          "\$${productPrice!.toString()}",
+                          "\$${widget.productPrice!}",
                           style: kProductTileStyle.copyWith(fontSize: 18),
                         ),
-                        /*RatingBar.builder(
-                        maxRating: 1,
-                          itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                size: 8,
-                                color: Colors.amber,
-                              ),
-                          onRatingUpdate: (rating){
-                          this.rating = rating;
-
-                          })*/
                         Row(
                           children: [
-                            Image.asset("images/vector_icons/rate.png"),
-                            SizedBox(width: 8.0,),
-                            Text("4.9",style: TextStyle(fontSize: 12.0,color: kSmallTextClr),)
+                            StarRating(
+                              rating: double.parse(widget.productRating!),
+                            ),
+                            const SizedBox(width: 8.0,),
+                            Text(widget.productRating!,style: TextStyle(fontSize: 12.0,color: kSmallTextClr),)
                           ],
                         ),
                       ],
@@ -100,8 +98,25 @@ class PopularProductTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Image.asset("images/vector_icons/Love_Icon2.png"),
-                        Image.asset("images/vector_icons/Shop_Cart_Icon_2.png"),
+                        GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              widget.favorite = !widget.favorite!;
+                            });
+                          },
+                          child: Container(
+                            child: widget.favorite!? Icon(Icons.favorite,color: Colors.pink):Icon(Icons.favorite_outline,color: Colors.pink),
+                          ),
+                        ),
+                        Container(
+                          height: 24,
+                          width: 51,
+                          decoration: BoxDecoration(
+                            color: kPrimaryBackGroundClr,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Icon(Icons.shopping_cart,
+                          size: 18,color: Colors.white,),
+                        )
                       ],
                     )
                   ],

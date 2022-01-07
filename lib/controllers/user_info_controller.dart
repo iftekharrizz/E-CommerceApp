@@ -4,10 +4,12 @@ class UserInfo with ChangeNotifier{
   String? _name;
   String? _email;
   String? _profileImage;
+  int _quantity=1;
 
   String? get userName => _name;
   String? get userEmail =>_email;
   String? get userImage =>_profileImage;
+  int? get quantity => _quantity;
 
   void updateUserName(String name){
     _name = name;
@@ -19,6 +21,10 @@ class UserInfo with ChangeNotifier{
   }
   void updateUserImage(String profileImage){
     _profileImage = profileImage;
+    notifyListeners();
+  }
+  void UpdateQuantity(){
+    _quantity++;
     notifyListeners();
   }
 

@@ -2,7 +2,9 @@ import 'package:ecommerce_ui/screens/authentication/forget_password.dart';
 import 'package:ecommerce_ui/screens/authentication/otp_screen.dart';
 import 'package:ecommerce_ui/screens/authentication/sign_in.dart';
 import 'package:ecommerce_ui/screens/authentication/sign_up.dart';
+import 'package:ecommerce_ui/screens/cart_screen/cart_page.dart';
 import 'package:ecommerce_ui/screens/home_screen/home_page.dart';
+import 'package:ecommerce_ui/screens/product_screen/product_page.dart';
 import 'package:ecommerce_ui/screens/profile_screen/profile_page.dart';
 import 'package:ecommerce_ui/screens/search_screen/search_result_page.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           //primarySwatch: Color(0xFF7BCFE9),
         ),
-        initialRoute: SignInScreen.routeName,
+        initialRoute: HomePage.routeName,
         routes: {
           SignInScreen.routeName: (context) => SignInScreen(),
           SignUpScreen.routeName: (context) => SignUpScreen(),
@@ -42,6 +44,8 @@ class MyApp extends StatelessWidget {
           HomePage.routeName: (context) => HomePage(),
           ProfileScreen.routeName: (context) => ProfileScreen(),
           SearchResultPage.routeName: (_) => SearchResultPage(),
+          ProductPage.routeName: (_) => ProductPage(),
+          CartPage.routeName: (_) => CartPage(),
         },
       ),
     );
