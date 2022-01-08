@@ -1,3 +1,4 @@
+import 'package:ecommerce_ui/controllers/cart_controller.dart';
 import 'package:ecommerce_ui/controllers/user_info_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
@@ -18,7 +19,7 @@ class ProductCounterBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           color: Colors.grey[200],
         ),
-        child: Text(context.watch<UserInfo>().quantity.toString()),
+        child: Text(context.watch<CartDetails>().quantity.toString()),
       ),
     );
   }

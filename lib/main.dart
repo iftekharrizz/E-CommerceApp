@@ -1,15 +1,16 @@
+import 'package:ecommerce_ui/controllers/cart_controller.dart';
 import 'package:ecommerce_ui/screens/authentication/forget_password.dart';
 import 'package:ecommerce_ui/screens/authentication/otp_screen.dart';
 import 'package:ecommerce_ui/screens/authentication/sign_in.dart';
 import 'package:ecommerce_ui/screens/authentication/sign_up.dart';
 import 'package:ecommerce_ui/screens/cart_screen/cart_page.dart';
 import 'package:ecommerce_ui/screens/home_screen/home_page.dart';
+import 'package:ecommerce_ui/screens/payment_screen/payment_page.dart';
 import 'package:ecommerce_ui/screens/product_screen/product_page.dart';
 import 'package:ecommerce_ui/screens/profile_screen/profile_page.dart';
 import 'package:ecommerce_ui/screens/search_screen/search_result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'controllers/user_info_controller.dart';
 
 
@@ -28,14 +29,15 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UserInfo()),
+        ChangeNotifierProvider(create: (_)=> CartDetails()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'E commerce',
         theme: ThemeData(
           //primarySwatch: Color(0xFF7BCFE9),
         ),
-        initialRoute: HomePage.routeName,
+        initialRoute: SignInScreen.routeName,
         routes: {
           SignInScreen.routeName: (context) => SignInScreen(),
           SignUpScreen.routeName: (context) => SignUpScreen(),
@@ -46,6 +48,8 @@ class MyApp extends StatelessWidget {
           SearchResultPage.routeName: (_) => SearchResultPage(),
           ProductPage.routeName: (_) => ProductPage(),
           CartPage.routeName: (_) => CartPage(),
+          PaymentPage.routeName: (_) => PaymentPage(),
+
         },
       ),
     );

@@ -4,8 +4,8 @@ import 'package:ecommerce_ui/components/custom_button.dart';
 import 'package:ecommerce_ui/components/custom_text_form_field.dart';
 import 'package:ecommerce_ui/components/top_banner_sheet.dart';
 import 'package:ecommerce_ui/screen_size_config.dart';
+import 'package:ecommerce_ui/screens/authentication/otp_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 import '../../constants.dart';
 
@@ -54,7 +54,9 @@ class ForgetPasswordScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 18.0,),
-                          PrimaryButton(btnLabel: "SAVE EMAIL ADDRESS",btnColor: kPrimaryButtonClr,),
+                          PrimaryButton(btnLabel: "SAVE EMAIL ADDRESS",btnColor: kPrimaryButtonClr,onTap: (){
+                            Navigator.pushNamed(context, OtpScreen.routeName);
+                          },),
                           const SizedBox(height: 8.0,),
                           PrimaryButton(btnLabel: "RESEND LINK",btnColor: kSecondaryButtonClrDeep,),
 

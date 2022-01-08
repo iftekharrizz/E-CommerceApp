@@ -1,10 +1,10 @@
 import 'dart:ffi';
 
+import 'package:ecommerce_ui/models/cart_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
-
 
 class DiscountSegment extends StatelessWidget {
   const DiscountSegment({
@@ -14,50 +14,70 @@ class DiscountSegment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 170,
+      height: 180,
       child: ListView.builder(
-        shrinkWrap: true,
+          physics: BouncingScrollPhysics(),
+          shrinkWrap: true,
           scrollDirection: Axis.horizontal,
-          itemCount: 9,
-          itemBuilder: (BuildContext context,int index) {
+          itemCount: cartItem.length,
+          itemBuilder: (BuildContext context, int index) {
             return DiscountTile(
-              productName: "amar product",
-              pastPrice: 100,
-              discount: 20,
+              productName: cartItem[index].productName!,
+              pastPrice: int.parse(cartItem[index].productPrice!),
+              discount: cartItem[index].discount!,
+              productImage: cartItem[index].productImage!,
             );
-          }
-      ),
+          }),
     );
   }
 }
 
-
-
 class DiscountTile extends StatelessWidget {
-
-  String? productName,productImage;
-  int? discount,pastPrice;
+  String? productName, productImage;
+  int? discount, pastPrice;
+  VoidCallback? onTap;
 
   DiscountTile(
-      {this.productName,
+      {this.onTap,
+      this.productName,
       this.productImage,
       this.discount,
       this.pastPrice});
 
   @override
   Widget build(BuildContext context) {
-    var presentPrice = pastPrice! - ((pastPrice!*discount!)/100);
+    var presentPrice = pastPrice! - ((pastPrice! * discount!) / 100);
     return Padding(
-      padding: const EdgeInsets.all(6.0),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
       child: Container(
-          height: 170.0,
-          width: 125.0,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Colors.white),
+        width: 125.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 7,
+                offset: const Offset(0, 2)),
+          ],
+        ),
         child: Stack(
-          clipBehavior: Clip.hardEdge,
           children: [
+            GestureDetector(
+              onTap: onTap,
+              child: Container(
+                width: 125,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.transparent,
+                ),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  child: Image.asset(productImage!, fit: BoxFit.fitHeight),
+                ),
+              ),
+            ),
             Positioned(
                 top: -0.1,
                 right: 8.0,
@@ -67,8 +87,7 @@ class DiscountTile extends StatelessWidget {
                     Image.asset("images/icons/badge_icon.png"),
                     const Text(
                       "Disc\n\n",
-                      style: TextStyle(
-                          fontSize: 10.0, color: Colors.white),
+                      style: TextStyle(fontSize: 10.0, color: Colors.white),
                     ),
                     Text(
                       "${discount.toString()}%",
@@ -87,12 +106,12 @@ class DiscountTile extends StatelessWidget {
                   children: [
                     Text(
                       productName!,
-                      style: kProductTileStyle,
+                      style: kProductTileStyle.copyWith(fontSize: 12),
                     ),
                     Row(
                       children: [
                         Text(
-                          "\$${presentPrice.toString()}   ",
+                          "\$${presentPrice.toStringAsFixed(1).toString()}   ",
                           style: kProductTileStyle,
                         ),
                         Text(

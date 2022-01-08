@@ -2,8 +2,10 @@ import 'package:ecommerce_ui/components/cart_icon_appbar.dart';
 import 'package:ecommerce_ui/components/custom_button.dart';
 import 'package:ecommerce_ui/components/rating_star_bar.dart';
 import 'package:ecommerce_ui/constants.dart';
+import 'package:ecommerce_ui/controllers/cart_controller.dart';
 import 'package:ecommerce_ui/controllers/user_info_controller.dart';
 import 'package:ecommerce_ui/enums.dart';
+import 'package:ecommerce_ui/models/cart_model.dart';
 import 'package:ecommerce_ui/screens/product_screen/product_components/counter_operator.dart';
 import 'package:ecommerce_ui/screens/product_screen/product_components/product_color_circle.dart';
 import 'package:ecommerce_ui/screens/product_screen/product_components/product_counter_box.dart';
@@ -21,7 +23,7 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   var selectedItem = 0;
   var itemCount = 1;
-  List<Color>colorList = [
+  List<Color> colorList = [
     Colors.pink,
     Colors.green,
     Colors.blue,
@@ -30,7 +32,8 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    var isSelected = 1;
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    int index = arguments['index'];
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -39,16 +42,21 @@ class _ProductPageState extends State<ProductPage> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Icon(Icons.arrow_back),
-                  CartIconAppBar(),
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(Icons.arrow_back),
+                  ),
+                  const CartIconAppBar(),
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height * 0.5,
               child: Image.asset(
-                "images/pictures/headphone.jpg",
+                cartItem[index].productImage!,
                 fit: BoxFit.cover,
               ),
             ),
@@ -62,12 +70,11 @@ class _ProductPageState extends State<ProductPage> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset: Offset(0, 3)),
+                        offset: const Offset(0, 3)),
                   ],
                 ),
                 child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 30,right: 30,top: 40),
+                  padding: const EdgeInsets.only(left: 30, right: 30, top: 40),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -78,17 +85,19 @@ class _ProductPageState extends State<ProductPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "product name",
+                                cartItem[index].productName!,
                                 style: kProductLabelStyle,
                               ),
-                              SizedBox(height: 6.0,),
+                              const SizedBox(
+                                height: 6.0,
+                              ),
                               Row(
                                 children: [
                                   StarRating(
-                                    rating: 4.5,
+                                    rating: cartItem[index].rating!,
                                   ),
                                   Text(
-                                    "  4.5",
+                                    "  ${cartItem[index].rating!.toString()}",
                                     style: kSmallTextStyle,
                                   )
                                 ],
@@ -96,7 +105,7 @@ class _ProductPageState extends State<ProductPage> {
                             ],
                           ),
                           Text(
-                            "\$97",
+                            "\$${cartItem[index].productPrice!}",
                             style: TextStyle(
                                 color: kPrimaryButtonClr,
                                 fontSize: 26,
@@ -107,7 +116,10 @@ class _ProductPageState extends State<ProductPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Size",style: kSmallTextStyle,),
+                          Text(
+                            "Size",
+                            style: kSmallTextStyle,
+                          ),
                           Row(
                             children: [
                               ProductSizeBox(
@@ -186,33 +198,35 @@ class _ProductPageState extends State<ProductPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Select Quantity",style: kSmallTextStyle,),
+                          Text(
+                            "Select Quantity",
+                            style: kSmallTextStyle,
+                          ),
                           Row(
                             children: [
                               CounterOperator(
-                                operator: Icons.remove,
-                                onClick: () {
-                                  if (itemCount > 1) {
-                                    setState(() {
-                                      itemCount--;
-                                    });
-                                  }
-                                },
-                              ),
+                                  operator: Icons.remove,
+                                  onClick: () {
+                                    context
+                                        .read<CartDetails>()
+                                        .reduceQuantity();
+                                  }),
                               ProductCounterBox(count: itemCount),
                               CounterOperator(
                                 operator: Icons.add,
                                 onClick: () {
-                                  context.read<UserInfo>().UpdateQuantity();
+                                  context.read<CartDetails>().addQuantity();
                                 },
                               ),
                             ],
                           )
                         ],
                       ),
-                      const SizedBox(height: 15,),
+                      const SizedBox(
+                        height: 15,
+                      ),
                       PrimaryButton(
-                        onTap: (){},
+                        onTap: () {},
                         btnColor: kPrimaryButtonClr,
                         btnLabel: "ADD TO CART",
                       ),
@@ -227,11 +241,3 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 }
-
-
-
-
-
-
-
-
