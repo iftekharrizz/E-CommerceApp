@@ -104,3 +104,16 @@ List<Cart> cartItem = [
       rating: 3.7,
     discount: 0,),
 ];
+
+List<Cart> cartlist = [
+  Cart(
+    productName: "test product",
+    productQuantity: 2,
+    productImage: "image/icons/google.png",
+    productSize: "M",
+    productPrice: '34',
+    rating: 1.6,
+  )
+];
+
+

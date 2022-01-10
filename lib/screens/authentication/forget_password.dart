@@ -42,14 +42,14 @@ class ForgetPasswordScreen extends StatelessWidget {
                         children: [
                           EmailTextFormField(controller: email,),
                           SizedBox(height: ScreenSizeConfig.screenHeight!*0.12,),
-                          Text("Code was send your email",style: kButtonLabelStyle.copyWith(color: Color(0xFFACBAC3)),),
+                          Text("Code was send your email",style: kButtonLabelStyle.copyWith(color: const Color(0xFFACBAC3)),),
                           const SizedBox(height: 8.0,),
                           Text("Kylie_04@gmail.com",style: kButtonLabelStyle.copyWith(color: kPrimaryButtonClr),),
                           SizedBox(height: ScreenSizeConfig.screenHeight!*0.09,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("This code will expire on ",style: kButtonLabelStyle.copyWith(color: Color(0xFFACBAC3),),),
+                              Text("This code will expire on ",style: kButtonLabelStyle.copyWith(color: const Color(0xFFACBAC3),),),
                               Text("${countDown.toString()} minutes",style: kButtonLabelStyle.copyWith(color: kPrimaryButtonClr),)
                             ],
                           ),

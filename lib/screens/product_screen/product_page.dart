@@ -22,6 +22,10 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   var selectedItem = 0;
+  List sizeBox = [
+    'S','M','L',"XL"
+  ];
+
   var itemCount = 1;
   List<Color> colorList = [
     Colors.pink,
@@ -44,7 +48,7 @@ class _ProductPageState extends State<ProductPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                     },
                     child: const Icon(Icons.arrow_back),
@@ -124,6 +128,17 @@ class _ProductPageState extends State<ProductPage> {
                             children: [
                               ProductSizeBox(
                                 sizeLetter: "S",
+                                selectedColor: selectedItem == 0
+                                    ? kActiveClr
+                                    : Colors.grey[200],
+                                onClick: () {
+                                  setState(() {
+                                    selectedItem = 0;
+                                  });
+                                },
+                              ),
+                              ProductSizeBox(
+                                sizeLetter: "M",
                                 selectedColor: selectedItem == 1
                                     ? kActiveClr
                                     : Colors.grey[200],
@@ -134,7 +149,7 @@ class _ProductPageState extends State<ProductPage> {
                                 },
                               ),
                               ProductSizeBox(
-                                sizeLetter: "M",
+                                sizeLetter: "L",
                                 selectedColor: selectedItem == 2
                                     ? kActiveClr
                                     : Colors.grey[200],
@@ -145,24 +160,13 @@ class _ProductPageState extends State<ProductPage> {
                                 },
                               ),
                               ProductSizeBox(
-                                sizeLetter: "L",
+                                sizeLetter: "XL",
                                 selectedColor: selectedItem == 3
                                     ? kActiveClr
                                     : Colors.grey[200],
                                 onClick: () {
                                   setState(() {
                                     selectedItem = 3;
-                                  });
-                                },
-                              ),
-                              ProductSizeBox(
-                                sizeLetter: "XL",
-                                selectedColor: selectedItem == 4
-                                    ? kActiveClr
-                                    : Colors.grey[200],
-                                onClick: () {
-                                  setState(() {
-                                    selectedItem = 4;
                                   });
                                 },
                               ),
@@ -226,7 +230,16 @@ class _ProductPageState extends State<ProductPage> {
                         height: 15,
                       ),
                       PrimaryButton(
-                        onTap: () {},
+                        onTap: () {
+                          context.read<CartDetails>().bucket!.add(Cart(
+                              productName: cartItem[index].productName!,
+                              productSize: sizeBox[selectedItem],
+                              productPrice: cartItem[index].productPrice!,
+                              productQuantity: 34,
+                              productImage: cartItem[index].productImage!,
+                              productColor: Color(0xFFAACCEE),
+                              rating: 2.4));
+                        },
                         btnColor: kPrimaryButtonClr,
                         btnLabel: "ADD TO CART",
                       ),

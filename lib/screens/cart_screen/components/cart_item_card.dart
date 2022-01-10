@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_ui/controllers/cart_controller.dart';
 import 'package:ecommerce_ui/screens/product_screen/product_components/counter_operator.dart';
 import 'package:ecommerce_ui/screens/product_screen/product_components/product_color_circle.dart';
@@ -11,15 +10,16 @@ import '../../../constants.dart';
 class CartItemCard extends StatelessWidget {
   CartItemCard(
       {this.itemCount,
-        this.checkBoxState,
-        this.toggleCheckboxState,
-        this.itemName,
-        this.itemColor,
-        this.itemSize,
-        this.itemPrice,
-        this.itemImage});
+      this.checkBoxState,
+      this.toggleCheckboxState,
+      this.itemName,
+      this.itemColor,
+      this.itemSize,
+      this.itemPrice,
+      this.itemImage, this.index});
 
   final int? itemCount;
+  final int? index;
   final String? itemName, itemSize, itemPrice, itemImage;
   final Color? itemColor;
   final bool? checkBoxState;
@@ -43,16 +43,16 @@ class CartItemCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Checkbox(
+                      /* Checkbox(
                           value: checkBoxState,
                           onChanged:
-                          toggleCheckboxState as void Function(bool?)?),
+                          toggleCheckboxState as void Function(bool?)?),*/
                       SizedBox(
                         height: 125,
                         width: 125,
                         child: ClipRRect(
                           borderRadius:
-                          const BorderRadius.all(Radius.circular(12)),
+                              const BorderRadius.all(Radius.circular(12)),
                           child: Image.asset(
                             itemImage!,
                             fit: BoxFit.cover,
@@ -158,10 +158,12 @@ class CartItemCard extends StatelessWidget {
               ),
             ),
           ),
-          const Positioned(
+          Positioned(
             top: 8,
             right: 8,
-            child: Icon(Icons.delete),
+            child: GestureDetector(onTap: () {
+              context.read<CartDetails>().removeItem(index!);
+            }, child: Icon(Icons.delete)),
           )
         ],
       ),
