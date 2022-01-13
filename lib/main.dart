@@ -10,6 +10,7 @@ import 'package:ecommerce_ui/screens/product_screen/product_page.dart';
 import 'package:ecommerce_ui/screens/profile_screen/profile_page.dart';
 import 'package:ecommerce_ui/screens/search_screen/search_result_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'controllers/user_info_controller.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserInfo()),
         ChangeNotifierProvider(create: (_)=> CartDetails()),
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'E commerce',
         theme: ThemeData(

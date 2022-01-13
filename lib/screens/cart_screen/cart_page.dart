@@ -3,6 +3,7 @@ import 'package:ecommerce_ui/controllers/cart_controller.dart';
 import 'package:ecommerce_ui/models/cart_model.dart';
 import 'package:ecommerce_ui/screens/payment_screen/payment_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'components/cart_item_card.dart';
 import 'components/checkout_bottom_navigation.dart';
@@ -26,13 +27,14 @@ class _CartPageState extends State<CartPage> {
     }
   }*/
 
+  CartController controller = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
       backgroundColor: Colors.grey[100],
       body: SafeArea(
-        child: Consumer<CartDetails>(
+       /* child: Consumer<CartDetails>(
           builder:(context, details , child) => ListView.builder(
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
@@ -48,7 +50,25 @@ class _CartPageState extends State<CartPage> {
                   itemCount: details.bucket![index].productQuantity,
                 );
               }),
-        ),
+        ),*/
+        child: GetBuilder<CartController>(
+          init: CartController(),
+          builder: (controller)=>ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              itemCount: controller.cartBucket!.length,
+              itemBuilder: (context, index) {
+                return CartItemCard(
+                  index: index,
+                  itemPrice: controller.cartBucket![index].productPrice,
+                  itemName: controller.cartBucket![index].productName,
+                  itemSize: controller.cartBucket![index].productSize,
+                  itemImage: controller.cartBucket![index].productImage,
+                  itemColor: controller.cartBucket![index].productColor,
+                  itemCount: controller.cartBucket![index].productQuantity,
+                );
+              }),
+        )
       ),
       bottomNavigationBar: CheckoutBottomNavigation(buttonName: "CHECKOUT",onTap: (){
         Navigator.pushNamed(context, PaymentPage.routeName);

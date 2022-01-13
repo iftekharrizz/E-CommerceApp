@@ -3,8 +3,7 @@ import 'package:ecommerce_ui/components/custom_button.dart';
 import 'package:ecommerce_ui/components/rating_star_bar.dart';
 import 'package:ecommerce_ui/constants.dart';
 import 'package:ecommerce_ui/controllers/cart_controller.dart';
-import 'package:ecommerce_ui/controllers/user_info_controller.dart';
-import 'package:ecommerce_ui/enums.dart';
+import 'package:ecommerce_ui/controllers/cart_counter_controller.dart';
 import 'package:ecommerce_ui/models/cart_model.dart';
 import 'package:ecommerce_ui/screens/product_screen/product_components/counter_operator.dart';
 import 'package:ecommerce_ui/screens/product_screen/product_components/product_color_circle.dart';
@@ -12,6 +11,7 @@ import 'package:ecommerce_ui/screens/product_screen/product_components/product_c
 import 'package:ecommerce_ui/screens/product_screen/product_components/product_size_box.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+import 'package:get/get.dart';
 
 class ProductPage extends StatefulWidget {
   static String routeName = "/product_page";
@@ -22,17 +22,19 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   var selectedItem = 0;
-  List sizeBox = [
-    'S','M','L',"XL"
-  ];
+  var selectedColor = 0;
+  List sizeBox = ['S', 'M', 'L', "XL"];
 
-  var itemCount = 1;
+  var itemCount = 1.obs;
   List<Color> colorList = [
     Colors.pink,
     Colors.green,
     Colors.blue,
     Colors.amber,
   ];
+
+  CounterController counterController = Get.put(CounterController());
+  CartController cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -184,16 +186,40 @@ class _ProductPageState extends State<ProductPage> {
                           Row(
                             children: [
                               ProductColorCircle(
+                                isSelected: selectedColor == 0,
                                 color: Colors.pink,
+                                onClick: () {
+                                  setState(() {
+                                    selectedColor = 0;
+                                  });
+                                },
                               ),
                               ProductColorCircle(
                                 color: Colors.orange,
+                                isSelected: selectedColor == 1,
+                                onClick: () {
+                                  setState(() {
+                                    selectedColor = 1;
+                                  });
+                                },
                               ),
                               ProductColorCircle(
                                 color: Colors.green,
+                                isSelected: selectedColor == 2,
+                                onClick: () {
+                                  setState(() {
+                                    selectedColor = 2;
+                                  });
+                                },
                               ),
                               ProductColorCircle(
                                 color: Colors.blue,
+                                isSelected: selectedColor == 3,
+                                onClick: () {
+                                  setState(() {
+                                    selectedColor = 3;
+                                  });
+                                },
                               )
                             ],
                           )
@@ -211,15 +237,16 @@ class _ProductPageState extends State<ProductPage> {
                               CounterOperator(
                                   operator: Icons.remove,
                                   onClick: () {
-                                    context
-                                        .read<CartDetails>()
-                                        .reduceQuantity();
+                                    counterController.counter > 1
+                                        ? counterController.decrement()
+                                        : null;
                                   }),
-                              ProductCounterBox(count: itemCount),
+                              ProductCounterBox(
+                                  count: counterController.counter),
                               CounterOperator(
                                 operator: Icons.add,
                                 onClick: () {
-                                  context.read<CartDetails>().addQuantity();
+                                  counterController.increment();
                                 },
                               ),
                             ],
@@ -231,14 +258,15 @@ class _ProductPageState extends State<ProductPage> {
                       ),
                       PrimaryButton(
                         onTap: () {
-                          context.read<CartDetails>().bucket!.add(Cart(
-                              productName: cartItem[index].productName!,
-                              productSize: sizeBox[selectedItem],
-                              productPrice: cartItem[index].productPrice!,
-                              productQuantity: 34,
-                              productImage: cartItem[index].productImage!,
-                              productColor: Color(0xFFAACCEE),
-                              rating: 2.4));
+                          cartController.addItem(
+                            productName: cartItem[index].productName!,
+                            productSize: sizeBox[selectedItem],
+                            productPrice: cartItem[index].productPrice!,
+                            productQuantity: counterController.counter.toInt(),
+                            productImage: cartItem[index].productImage!,
+                            productColor: const Color(0xFFAACCEE),
+                            rating: 2.4,
+                          );
                         },
                         btnColor: kPrimaryButtonClr,
                         btnLabel: "ADD TO CART",

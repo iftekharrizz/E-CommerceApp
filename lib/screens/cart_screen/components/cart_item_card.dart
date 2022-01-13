@@ -1,11 +1,14 @@
 import 'package:ecommerce_ui/controllers/cart_controller.dart';
+import 'package:ecommerce_ui/controllers/cart_counter_controller.dart';
 import 'package:ecommerce_ui/screens/product_screen/product_components/counter_operator.dart';
 import 'package:ecommerce_ui/screens/product_screen/product_components/product_color_circle.dart';
 import 'package:ecommerce_ui/screens/product_screen/product_components/product_counter_box.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/src/provider.dart';
 
 import '../../../constants.dart';
+import 'cart_counter_box.dart';
 
 class CartItemCard extends StatelessWidget {
   CartItemCard(
@@ -16,7 +19,8 @@ class CartItemCard extends StatelessWidget {
       this.itemColor,
       this.itemSize,
       this.itemPrice,
-      this.itemImage, this.index});
+      this.itemImage,
+      this.index});
 
   final int? itemCount;
   final int? index;
@@ -25,6 +29,8 @@ class CartItemCard extends StatelessWidget {
   final bool? checkBoxState;
   final Function? toggleCheckboxState;
 
+  CartController cartController = Get.put(CartController());
+  CounterController counterController = Get.put(CounterController());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -78,9 +84,8 @@ class CartItemCard extends StatelessWidget {
                                   "Color : ",
                                   style: kSmallTextStyle,
                                 ),
-                                ProductColorCircle(
+                                CartColorDot(
                                   colorCode: itemColor,
-                                  dotSize: 15,
                                 )
                               ],
                             ),
@@ -106,16 +111,16 @@ class CartItemCard extends StatelessWidget {
                                 CounterOperator(
                                   operator: Icons.remove,
                                   onClick: () {
-                                    context
-                                        .read<CartDetails>()
-                                        .reduceQuantity();
+                                    Get.find<CartController>()
+                                        .decrement(index!);
                                   },
                                 ),
-                                ProductCounterBox(count: itemCount),
+                                CartCounterBox(index: index,),
                                 CounterOperator(
                                   operator: Icons.add,
                                   onClick: () {
-                                    context.read<CartDetails>().addQuantity();
+                                    Get.find<CartController>()
+                                        .increment(index!);
                                   },
                                 ),
                               ],
@@ -142,7 +147,7 @@ class CartItemCard extends StatelessWidget {
                         "Sub Total:",
                         style: kProductTileStyle.copyWith(fontSize: 15),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
                         child: Text(
@@ -161,9 +166,11 @@ class CartItemCard extends StatelessWidget {
           Positioned(
             top: 8,
             right: 8,
-            child: GestureDetector(onTap: () {
-              context.read<CartDetails>().removeItem(index!);
-            }, child: Icon(Icons.delete)),
+            child: GestureDetector(
+                onTap: () {
+                  cartController.removeItem(index!);
+                },
+                child: const Icon(Icons.delete)),
           )
         ],
       ),

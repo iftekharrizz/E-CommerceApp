@@ -6,12 +6,12 @@ import 'package:get/get.dart';
 
 import 'package:provider/src/provider.dart';
 
-class ProductCounterBox extends StatelessWidget {
-  ProductCounterBox({this.count});
+class CartCounterBox extends StatelessWidget {
+  CartCounterBox({this.count,this.index});
   var count;
+  int? index;
 
-  //CounterController counterController = Get.put(CounterController());
-
+  CartController controller = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,7 +24,11 @@ class ProductCounterBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           color: Colors.grey[200],
         ),
-        child:Obx(()=>Text(count.toString()))
+        child:GetBuilder<CartController>(
+          builder: (controller)=>
+              Text(controller.productCounter(index!).toString()),
+        ),
+         /* child: Text(count.toString()),*/
       ),
     );
   }

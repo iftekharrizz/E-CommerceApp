@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
 
 class Cart {
   String? productName, productSize, productPrice;
-  int? productQuantity;
+  var productQuantity;
   double? rating;
   Color? productColor;
   String? productImage;
@@ -18,6 +19,7 @@ class Cart {
       this.productQuantity,
       this.rating,
       this.discount});
+  final quantity = 1.obs;
 }
 
 List<Cart> cartItem = [
